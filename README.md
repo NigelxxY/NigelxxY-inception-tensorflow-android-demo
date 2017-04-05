@@ -1,1 +1,0 @@
-# inception-tensorflow-android-demo
