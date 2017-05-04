@@ -50,12 +50,12 @@ public class AdapterList extends BaseAdapter {
         View vi = view;
         if(view==null)
             vi = inflater.inflate(R.layout.list_raw,null);
-        TextView des = (TextView)vi.findViewById(R.id.des);
+        //TextView des = (TextView)vi.findViewById(R.id.des);
         TextView price = (TextView)vi.findViewById(R.id.price);
         TextView type = (TextView)vi.findViewById(R.id.type);
         ImageView imageView = (ImageView)vi.findViewById(R.id.list_image);
 
-        des.setText(data.getData().get(i).getDescription());
+        //des.setText(data.getData().get(i).getDescription());
         price.setText(data.getData().get(i).getPrice()+"");
         type.setText(data.getData().get(i).getType());
         byte[] imageByte = data.getData().get(i).getImage();
@@ -70,4 +70,5 @@ public class AdapterList extends BaseAdapter {
         imageView.setImageBitmap(newBm);
         return vi;
     }
+
 }

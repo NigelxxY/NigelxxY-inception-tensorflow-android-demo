@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/leftImage"
         android:layout_toRightOf="@id/leftImage"
-        android:text="this is description !"
         android:textColor="#040404"
         android:typeface = "sans"
         android:textSize = "15dp"

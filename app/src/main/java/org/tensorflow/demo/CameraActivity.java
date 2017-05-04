@@ -84,7 +84,6 @@ public class CameraActivity extends Activity {
     final AssetManager assetManager = getAssets();
     tensorflow.initializeTensorFlow(assetManager,MODEL_FILE,LABEL_FILE,NUM_CLASSES,INPUT_SIZE,IMAGE_MEAN,
             IMAGE_STD,INPUT_NAME,OUTPUT_NAME);
-
     Button button = (Button)findViewById(R.id.b01);
     button.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -176,13 +175,14 @@ public class CameraActivity extends Activity {
     Bitmap newbm = Bitmap.createBitmap(bitmap,0,0,width,height,matrix,true);
     imageView.setImageBitmap(newbm);
     final List<Classifier.Recognition> results = tensorflow.recognizeImage(newbm);
-    final String title = getLable(results.get(0).getTitle());
+    TextView textView = (TextView)findViewById(R.id.t01);
+    textView.setText("分类结果："+results.get(0).getTitle()+"\t置信度为："+results.get(0).getConfidence());
     Thread t = new Thread(){
       @Override
       public  void run(){
         HttpURLConnection conn = null;
         try{
-          URL url = new URL(UrlPath+title);
+          URL url = new URL(UrlPath+getLabel(results));
           conn = (HttpURLConnection)url.openConnection();
           conn.setRequestMethod("GET");
           conn.setConnectTimeout(10*1000);
@@ -209,22 +209,37 @@ public class CameraActivity extends Activity {
     };
     t.start();
   }
-  private String getLable(String result){
-    switch (result){
-      case "mouse":
-        return "mouse";
-      case "computer keyboard":
-      case "typewriter keyboard":
-        return "keyboard";
-      case "Polaroid camera":
-      case "reflex camera":
-        return "camera";
-      case "desktop computer":
-      case "laptop":
-        return "laptop";
-      default:
-        return "book";
+  private String getLabel(List<Classifier.Recognition> results){
+    String label = null;
+    for(int i=0;i<results.size();i++){
+      switch (results.get(i).getTitle()){
+        case "envelope":
+        case "comic book":
+          label="book";break;
+        case "mouse":
+          label="mouse";break;
+        case "computer keyboard":
+        case "typewriter keyboard":
+          label="keyboard";break;
+        case "laptop":
+        case "notebook":
+        case "window screen":
+        case "monitor":
+        case "web site":
+          label="laptop";break;
+        case "running shoe":
+        case "sock":
+        case "loafer":
+          label="sportshoes";break;
+        case "Polaroid camera":
+        case "reflex camera":
+          label="camera";break;
+      }
+      if(label!=null)
+        break;
     }
+    return label;
   }
+
 }
 
