@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <SurfaceView
+        android:id="@+id/mSurfaceView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+         />
+
+    <ImageButton
+        android:id="@+id/myButton"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:background="@drawable/photo_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <ImageButton
+        android:id="@+id/myButton1"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/save_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/myButton2"
+        android:layout_width="23dp"
+        android:layout_height="46dp"
+        android:background="@drawable/return_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

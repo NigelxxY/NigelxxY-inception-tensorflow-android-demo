@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Nigel_xxY on 2017/4/23.
@@ -23,21 +22,22 @@ import java.util.HashMap;
 public class AdapterList extends BaseAdapter {
 
     private Activity activity;
-    private Info data;
+    private viewHolder holder;
+    private ArrayList<FoodModel> data;
     private static LayoutInflater inflater = null;
-    public AdapterList(Activity a,Info d){
+    public AdapterList(Activity a,ArrayList<FoodModel> data){
         activity = a;
-        data = d;
+        this.data = data;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @Override
     public int getCount() {
-        return data.getData().size();
+        return data.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return data.getData().get(i);
+        return data.get(i);
     }
 
     @Override
@@ -48,27 +48,41 @@ public class AdapterList extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View vi = view;
-        if(view==null)
-            vi = inflater.inflate(R.layout.list_raw,null);
-        //TextView des = (TextView)vi.findViewById(R.id.des);
-        TextView price = (TextView)vi.findViewById(R.id.price);
-        TextView type = (TextView)vi.findViewById(R.id.type);
-        ImageView imageView = (ImageView)vi.findViewById(R.id.list_image);
-
-        //des.setText(data.getData().get(i).getDescription());
-        price.setText(data.getData().get(i).getPrice()+"");
-        type.setText(data.getData().get(i).getType());
-        byte[] imageByte = data.getData().get(i).getImage();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(imageByte,0,imageByte.length);
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        float scaleWidth = ((float)100)/width;
-        float scaleHeight = ((float)100)/height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth,scaleHeight);
-        Bitmap newBm = Bitmap.createBitmap(bitmap,0,0,width,height,matrix,true);
-        imageView.setImageBitmap(newBm);
+        if(view==null) {
+            vi = inflater.inflate(R.layout.list_raw, null);
+            holder = new viewHolder();
+            holder.imageView = (ImageView)vi.findViewById(R.id.image_main);
+            holder.topNum = (TextView)vi.findViewById(R.id.top_number);
+            holder.lable = (TextView)vi.findViewById(R.id.picture_name);
+            holder.confindence=(TextView)vi.findViewById(R.id.confidence);
+            vi.setTag(holder);
+        }else{
+            holder=(viewHolder)vi.getTag();
+        }
+        Bitmap bm = BitmapFactory.decodeFile(data.get(i).getImageUri());
+        holder.imageView.setImageBitmap(bm);
+        List<Classifier.Recognition> tmp = data.get(i).getResult();
+        if(tmp==null){
+            holder.lable.setText("无分类结果");
+        }else {
+            String result_title = "";
+            String result_confidence  = "置信度为：";
+            int tmp_size = tmp.size();
+            for(int j=0;j<tmp_size;j++){
+                result_title = result_title +"/" + tmp.get(j).getTitle();
+                result_confidence = result_confidence + "/"+tmp.get(j).getConfidence();
+            }
+            holder.topNum.setText("分类结果为：");
+            holder.lable.setText(result_title);
+            holder.confindence.setText(result_confidence);
+        }
         return vi;
+    }
+    static class viewHolder{
+        public ImageView imageView;
+        public TextView topNum;
+        public TextView lable;
+        public TextView confindence;
     }
 
 }

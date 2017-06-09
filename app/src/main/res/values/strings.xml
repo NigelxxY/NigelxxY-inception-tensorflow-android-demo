@@ -3,4 +3,30 @@
     <string name="description_info">Info</string>
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+    <string name="title_activity_snap">SnapActivity</string>、
+    <string name="filter_normal">NORMAL</string>
+    <string name="filter_amaro">AMARO</string>
+    <string name="filter_rise">RISE</string>
+    <string name="filter_hudson">HUDSON</string>
+    <string name="filter_xproii">XPROII</string>
+    <string name="filter_sierra">SIERRA</string>
+    <string name="filter_lomo">LOMOFI</string>
+    <string name="filter_earlybird">EARLYBIRD</string>
+    <string name="filter_sutro">SUTRO</string>
+    <string name="filter_toaster">TOASTER</string>
+    <string name="filter_brannan">BRANNAN</string>
+    <string name="filter_inkwell">INKWELL</string>
+    <string name="filter_walden">WALDEN</string>
+    <string name="filter_hefe">HEFE</string>
+    <string name="filter_valencia">VALENCIA</string>
+    <string name="filter_nashville">NASHVILLE</string>
+    <string name="filter_1977">1977</string>
+    <string name="filter_lordkelvin">LORDKELVIN</string>
+    <string name="save">Save</string>
+    <string name="save_tip">The filtered image saved to %1$s</string>
+    <string name="string_clean">取消</string>
+    <string name="string_send">发送</string>
+    <string name="string_send_contetn">这一该的想法...</string>
+    <string name="string_compelete">完成</string>
+
 </resources>
